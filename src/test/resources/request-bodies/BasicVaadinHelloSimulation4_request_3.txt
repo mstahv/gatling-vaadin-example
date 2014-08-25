@@ -1,0 +1,1 @@
+{"rpc":[["0","com.vaadin.shared.ui.ui.UIServerRpc","resize",["779","845","845","779"]],["2","com.vaadin.shared.ui.button.ButtonServerRpc","click",[{"shiftKey":false, "metaKey":false, "ctrlKey":false, "relativeX":"33", "relativeY":"5", "type":"1", "altKey":false, "button":"LEFT", "clientX":"51", "clientY":"23"}]]], "syncId":1}
