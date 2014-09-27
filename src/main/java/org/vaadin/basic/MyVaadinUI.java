@@ -1,6 +1,5 @@
 package org.vaadin.basic;
 
-import com.vaadin.annotations.Push;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.VaadinRequest;
@@ -14,12 +13,17 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 
 @SuppressWarnings("serial")
-@Push
 @Theme("valo")
-public class MyVaadinUI extends UI
-{
+public class MyVaadinUI extends UI {
 
-    @WebServlet(value = "/*", asyncSupported = true, initParams = {@WebInitParam(name = "disable-xsrf-protection",value = "true")})
+    @WebServlet(value = "/*", asyncSupported = true, initParams = {
+        // disables xsrf forgering protection, not good for production, but makes
+        // load testing easier
+        @WebInitParam(name = "disable-xsrf-protection", value = "true"),
+        // disables syncid verifation in vaadin client-server communiction
+        // not good for production, but makes load testing easier
+        @WebInitParam(name = "syncId", value = "false"),
+    })
     @VaadinServletConfiguration(productionMode = false, ui = MyVaadinUI.class)
     public static class Servlet extends VaadinServlet {
     }
@@ -29,7 +33,7 @@ public class MyVaadinUI extends UI
         final VerticalLayout layout = new VerticalLayout();
         layout.setMargin(true);
         setContent(layout);
-        
+
         Button button = new Button("Click Me");
         button.addClickListener(new Button.ClickListener() {
             public void buttonClick(ClickEvent event) {

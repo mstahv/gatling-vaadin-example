@@ -6,6 +6,10 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.jdbc.Predef._
 
+/**
+ * This is example exuction is originally simply recorded agains the web app.
+ * After that there are some refactoring done to improve the readability a bit.
+ **/
 class BasicVaadinHelloSimulation extends Simulation {
 
 	val httpProtocol = http
@@ -17,13 +21,11 @@ class BasicVaadinHelloSimulation extends Simulation {
 		.contentTypeHeader("""application/json; charset=UTF-8""")
 		.userAgentHeader("""Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.143 Safari/537.36""")
 
-	val headers_0 = Map(
+	val headers_for_hostpage = Map(
 		"""Accept""" -> """text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8""",
 		"""Cache-Control""" -> """max-age=0""")
 
-	val headers_1 = Map("""Cache-Control""" -> """max-age=0""")
-
-	val headers_2 = Map(
+	val headers_initial_state_request = Map(
 		"""Cache-Control""" -> """max-age=0""",
 		"""Content-type""" -> """application/x-www-form-urlencoded""",
 		"""Origin""" -> """http://localhost:8080""")
@@ -34,17 +36,17 @@ class BasicVaadinHelloSimulation extends Simulation {
 
         // static resoures not fetched, can/should be moved to CDN
 	val scn = scenario("BasicVaadinHelloSimulation4")
-		.group("Create Process") {
+		.group("Fetch host page") {
 		exec(http("request_0")
 			.get("""/""")
-			.headers(headers_0))
+			.headers(headers_for_hostpage))
 		.pause(1 seconds)
                 // ajax communication request must be in subsequent exec,
                 // otherwise (if used e.g. resource request like in recorded case)
                 // session is not yet correctly set up
 		.exec(http("request_2")
 			.post(uri1 + """/?v-1408798653302""")
-			.headers(headers_2)
+			.headers(headers_initial_state_request)
 			.body(RawFileBody("BasicVaadinHelloSimulation4_request_2.txt")))
 		.pause(2 seconds)
 		.exec(http("request_3")
@@ -58,7 +60,7 @@ class BasicVaadinHelloSimulation extends Simulation {
         // Next line will execute the test just once
 	//setUp(scn.inject(atOnceUsers(1))).protocols(httpProtocol)
 
-        // This uses more load, simulates 1000 users who arrive with-in 10 seconds
-	setUp(scn.inject(rampUsers(1) over (10 seconds))).protocols(httpProtocol)
+        // This uses more load, simulates 100 users who arrive with-in 10 seconds
+	setUp(scn.inject(rampUsers(100) over (10 seconds))).protocols(httpProtocol)
 	
 }
