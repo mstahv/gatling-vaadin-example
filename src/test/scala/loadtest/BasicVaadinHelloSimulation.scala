@@ -50,7 +50,7 @@ class BasicVaadinHelloSimulation extends Simulation {
 			.body(RawFileBody("BasicVaadinHelloSimulation4_request_2.txt")))
 		.pause(2 seconds)
 		.exec(http("request_3")
-			.post(uri1 + """/UIDL/?v-wsver=7.3.0.rc1&v-uiId=0""")
+			.post(uri1 + """/UIDL/?v-wsver=7.3.2&v-uiId=0""")
 			.headers(headers_3)
 			.body(RawFileBody("BasicVaadinHelloSimulation4_request_3.txt"))
                         // Make a small check that the scenario was successful
