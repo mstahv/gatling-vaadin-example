@@ -13,4 +13,6 @@ If you check out and execute "mvn install", either with command line or with ide
 
 If you play around with the project in IDE, you can also start the web app in any way you want and then just execute the test scenario. Easies way to start gatling script is probably executing "mvn gatling:execute".
 
-For an example that uses WebSocket communication (aka modern server push) use branch "websocket".
+For an example that uses WebSocket communication (aka modern server push) check out [this project](https://github.com/mstahv/v-quiz/). TODO Make a very simple version of websocket testing into this example project as well. Contributions more than welcome.
+
+
